@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/winter-theme-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/winter-theme-{{ version }}.tar.gz
   sha256: 08e0098824b8a2a51b7a9be836c274908b76c692ee9caf4d59406c4d0b4c623e
 
 build:
@@ -14,14 +14,15 @@ build:
     - winter-theme = winter_theme.__main__:main
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
     - pip
-    - python >=3.5
+    - python {{ python_min }}
+    - setuptools
   run:
-    - python >=3.5
+    - python >={{ python_min }}
     - tkstyle
 
 test:
@@ -32,6 +33,7 @@ test:
     - winter-theme
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/pyrustic/winter-theme
